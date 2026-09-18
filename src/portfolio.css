@@ -1,0 +1,1776 @@
+/* =====================================================
+   ROOT TOKENS
+   (kept minimal — most of the file still uses the
+   original literal colors so the palette stays identical)
+===================================================== */
+:root {
+  --gold: #cba876;
+  --gold-soft: rgba(203, 168, 118, 0.55);
+  --blush: #f0d3d6;
+  --blush-soft: rgba(240, 211, 214, 0.4);
+  --blush-glow: rgba(240, 211, 214, 0.25);
+  --ivory: #fbf9f5;
+  --font-display: "Cormorant Garamond", "Segoe UI", Georgia, serif;
+}
+
+/* Emphasis utilities — used sparingly inside existing copy
+   (hero name, portfolio title, a few words in the bio) */
+.gradient-text {
+  background: linear-gradient(
+    100deg,
+    var(--ivory) 0%,
+    aquamarine 45%,
+    var(--blush) 75%,
+    var(--gold) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.accent-name {
+  color: var(--ivory);
+  text-shadow:
+    0 0 18px var(--blush-glow),
+    0 0 30px rgba(127, 255, 212, 0.25);
+}
+.accent-text {
+  color: var(--ivory);
+  font-weight: 600;
+}
+.accent-text-soft {
+  color: var(--blush);
+  font-style: italic;
+}
+
+/* =====================================================
+   RESET
+===================================================== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Jost", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0.01em;
+  background: #0a0a0a;
+}
+section {
+  width: 100%;
+  min-height: 100vh;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Base focus ring (specific components below refine this further) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* =====================================================
+   HOME
+===================================================== */
+.home {
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  padding-top: 15px;
+  padding-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.home .h5 {
+  color: white;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(42px, 10vw, 100px);
+  font-style: italic;
+  font-weight: 600;
+  margin: 0.4em 0;
+}
+.h51 {
+  color: aquamarine;
+  font-size: clamp(16px, 3.4vw, 30px);
+  font-style: italic;
+  margin-left: clamp(16px, 5vw, 50px);
+}
+.line {
+  color: aquamarine;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  padding: 0 clamp(16px, 5vw, 50px);
+}
+.line h4 {
+  font-size: clamp(14px, 2.4vw, 30px);
+  font-style: italic;
+  margin: 6px 0;
+}
+.h52 {
+  text-align: left;
+}
+.h53 {
+  text-align: right;
+}
+
+/* Hero entrance (page-load sequence, not scroll-triggered) */
+.reveal-load {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+.reveal-load.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   TABLE OF CONTENTS (rotating circular nav)
+===================================================== */
+.abt-me {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 10px;
+  background: #05100c;
+  overflow: hidden;
+}
+.tab {
+  color: aquamarine;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 8vw, 80px);
+  font-style: italic;
+  font-weight: 600;
+  margin: 0.3em 0;
+}
+.abt-me .btn-menu {
+  color: #cbeac0;
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(240px, 62vw, 450px);
+  height: clamp(220px, 55vw, 400px);
+  animation: rotateCircle 12s linear infinite;
+}
+.abt-me .btn-menu button {
+  color: #cbeac0;
+  font-size: clamp(10px, 1.9vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+  position: absolute;
+  width: clamp(58px, 20vw, 90px);
+  height: clamp(58px, 20vw, 90px);
+  border-radius: 50%;
+  border: none;
+  background-color: rgb(3, 87, 55);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  animation: counterRotate 12s linear infinite;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  padding: 4px;
+}
+.abt-me .btn-menu button:nth-child(1) {
+  top: 50%;
+  left: 100%;
+}
+.abt-me .btn-menu button:nth-child(2) {
+  top: 15%;
+  left: 85%;
+}
+.abt-me .btn-menu button:nth-child(3) {
+  top: 0%;
+  left: 50%;
+}
+.abt-me .btn-menu button:nth-child(4) {
+  top: 15%;
+  left: 15%;
+}
+.abt-me .btn-menu button:nth-child(5) {
+  top: 50%;
+  left: 0%;
+}
+.abt-me .btn-menu button:nth-child(6) {
+  top: 85%;
+  left: 15%;
+}
+.abt-me .btn-menu button:nth-child(7) {
+  top: 100%;
+  left: 50%;
+}
+.abt-me .btn-menu button:nth-child(8) {
+  top: 85%;
+  left: 85%;
+}
+
+.abt-me .btn-menu button:hover,
+.abt-me .btn-menu button:focus-visible {
+  transform: translate(-50%, -50%) scale(1.12);
+  background: #096151;
+  box-shadow: 0 0 16px rgba(45, 255, 106, 0.7);
+  outline: none;
+}
+.abt-me .btn-menu button:focus-visible {
+  box-shadow:
+    0 0 0 3px var(--gold),
+    0 0 16px rgba(45, 255, 106, 0.7);
+}
+
+@keyframes rotateCircle {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes counterRotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+.abt-me .btn-menu:hover,
+.abt-me .btn-menu:focus-within {
+  animation-play-state: paused;
+}
+.abt-me .btn-menu:hover button,
+.abt-me .btn-menu:focus-within button {
+  animation-play-state: paused;
+}
+
+/* =====================================================
+   ABOUT ME (hud panel)
+===================================================== */
+.def {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(24px, 6vw, 60px) clamp(16px, 6vw, 60px);
+  background: linear-gradient(135deg, #82fae4, #064f42, #0a0a0a);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.circle {
+  position: absolute;
+  top: 50%;
+  left: clamp(70%, 72vw, 92%);
+  width: clamp(180px, 25vw, 400px);
+  height: clamp(180px, 25vw, 400px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 6px solid #5f716682;
+  box-shadow:
+    0 0 20px #cdb696,
+    0 0 40px #afcbbe,
+    0 0 80px #00ffae;
+  animation: pulse 3s infinite ease-in-out;
+  pointer-events: none;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px #74ffca,
+      0 0 40px #7df7d4,
+      0 0 80px #80f1d7;
+  }
+  50% {
+    box-shadow:
+      0 0 30px #299372,
+      0 0 60px #027a5c,
+      0 0 120px #1e7c5b;
+  }
+}
+
+.hud-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  min-height: clamp(320px, 45vw, 500px);
+}
+
+/* Portrait: reuses the same soft pulse glow as .circle so the
+   photo reads as part of the same hud system, not a bolted-on add */
+.portrait {
+  width: clamp(130px, 30vw, 190px);
+  height: clamp(130px, 30vw, 190px);
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 22px;
+  border: 3px solid var(--gold-soft);
+  box-shadow:
+    0 0 20px rgba(203, 168, 118, 0.35),
+    0 0 40px rgba(45, 255, 106, 0.25);
+  animation: pulse 3s infinite ease-in-out;
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.portrait:hover {
+  transform: scale(1.04) rotate(-1.5deg);
+  box-shadow:
+    0 0 26px rgba(203, 168, 118, 0.5),
+    0 0 50px rgba(45, 255, 106, 0.3);
+}
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: rgba(5, 16, 12, 0.35);
+}
+
+.hud-btn {
+  background-color: rgb(137, 255, 214);
+  border-radius: 0;
+  border: 3px dashed #034530;
+  color: #031803;
+  width: clamp(220px, 32vw, 520px);
+  height: clamp(70px, 8vw, 100px);
+  margin-top: 16px;
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 10px rgba(10, 90, 32, 0.6),
+    inset 0 0 10px rgba(45, 255, 106, 0.3);
+  transition: 0.3s ease;
+  clip-path: polygon(50% 2%, 78% 14%, 78% 88%, 50% 98%, 22% 88%, 22% 12%);
+}
+.hud-text {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 3vw, 36px);
+  font-style: italic;
+  font-weight: 600;
+  text-align: center;
+}
+.hud-btn:hover,
+.hud-btn:focus-visible {
+  background: rgba(45, 255, 106, 0.15);
+  box-shadow:
+    0 0 20px rgba(45, 255, 106, 0.9),
+    inset 0 0 15px rgba(45, 255, 106, 0.6);
+  outline: none;
+}
+
+.p {
+  text-align: left;
+  font-style: italic;
+  font-size: clamp(15px, 1.6vw, 22px);
+  line-height: 1.6;
+  color: var(--ivory);
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 0;
+}
+
+/* =====================================================
+   SECTION DIVIDER (signature flourish, used between panels)
+===================================================== */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+  padding: clamp(18px, 3vw, 30px) 0;
+}
+.divider span {
+  position: relative;
+  width: min(64%, 460px);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gold-soft) 35%,
+    var(--blush-soft) 65%,
+    transparent
+  );
+}
+.divider span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--gold);
+  background: #0a0a0a;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* =====================================================
+   SHARED STYLES FOR NEW / COMPLETED SECTIONS
+===================================================== */
+.panel {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(40px, 6vw, 70px) clamp(20px, 7vw, 90px);
+  background: linear-gradient(160deg, #0a0a0a, #063d33, #0a0a0a);
+  color: var(--ivory);
+}
+.panel-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.panel .tab {
+  margin-bottom: clamp(16px, 3vw, 30px);
+}
+.section-note {
+  color: rgba(127, 255, 212, 0.65);
+  font-size: clamp(13px, 1.4vw, 16px);
+  margin: 0 0 clamp(24px, 4vw, 40px) 0;
+}
+
+/* Education timeline */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.timeline li {
+  border-left: 3px solid aquamarine;
+  border-radius: 0 10px 10px 0;
+  padding: 10px 16px 10px 20px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.03), rgba(240, 211, 214, 0.03));
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+.timeline li:hover {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.06), rgba(240, 211, 214, 0.05));
+  border-color: var(--blush);
+  transform: translateX(4px);
+}
+.timeline h3 {
+  color: aquamarine;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  font-size: clamp(18px, 2.4vw, 26px);
+}
+.timeline span.meta {
+  display: block;
+  font-size: clamp(13px, 1.4vw, 16px);
+  opacity: 0.75;
+  margin-bottom: 6px;
+}
+.timeline p {
+  margin: 0;
+  font-size: clamp(14px, 1.5vw, 18px);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Skills */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+.skill {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.06), rgba(240, 211, 214, 0.04));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(127, 255, 212, 0.25);
+  border-radius: 12px;
+  padding: 16px 18px;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.skill:hover {
+  border-color: var(--blush-soft);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(240, 211, 214, 0.12);
+}
+.skill h4 {
+  color: aquamarine;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  font-size: clamp(15px, 1.8vw, 19px);
+}
+.skill-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.skill-bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+  background: linear-gradient(to right, #2dff6a, aquamarine);
+  box-shadow: 0 0 8px rgba(45, 255, 106, 0.6);
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Projects */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 26px;
+}
+.project-card {
+  position: relative;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.06), rgba(240, 211, 214, 0.04));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(127, 255, 212, 0.25);
+  border-radius: 12px;
+  padding: 20px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.project-card::before,
+.project-card::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-top: 1.5px solid var(--gold);
+  border-left: 1.5px solid var(--gold);
+  top: 8px;
+  left: 8px;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    top 0.3s ease,
+    left 0.3s ease;
+}
+.project-card::after {
+  top: auto;
+  left: auto;
+  bottom: 8px;
+  right: 8px;
+  border-top: none;
+  border-left: none;
+  border-bottom: 1.5px solid var(--gold);
+  border-right: 1.5px solid var(--gold);
+}
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold-soft);
+  box-shadow:
+    0 10px 24px rgba(45, 255, 106, 0.2),
+    0 4px 18px rgba(203, 168, 118, 0.18);
+}
+.project-card:hover::before {
+  opacity: 1;
+  top: 4px;
+  left: 4px;
+}
+.project-card:hover::after {
+  opacity: 1;
+  bottom: 4px;
+  right: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card::before,
+  .project-card::after {
+    transition: none;
+  }
+}
+.project-card h3 {
+  color: aquamarine;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  font-size: clamp(17px, 2vw, 22px);
+}
+.project-card p {
+  font-size: clamp(14px, 1.5vw, 17px);
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+}
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.project-tags span {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid aquamarine;
+  color: aquamarine;
+}
+.project-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--pearl);
+  font-style: italic;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rose);
+}
+.project-link:hover,
+.project-link:focus-visible {
+  color: var(--rose);
+}
+
+/* Details */
+.details-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.details-list li {
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid aquamarine;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 16px;
+  font-style: italic;
+}
+.details-list strong {
+  color: aquamarine;
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  font-style: normal;
+}
+
+/* Contact */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 520px;
+}
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.8fr);
+  align-items: start;
+  gap: clamp(28px, 6vw, 84px);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field label {
+  color: rgba(251, 249, 245, 0.78);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.contact-form input,
+.contact-form textarea {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(240, 211, 214, 0.04));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(127, 255, 212, 0.4);
+  border-radius: 8px;
+  color: var(--ivory);
+  font-family: inherit;
+  font-size: 15px;
+  padding: 12px 14px;
+  resize: vertical;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(251, 249, 245, 0.45);
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #2dff6a;
+  box-shadow: 0 0 10px rgba(45, 255, 106, 0.4);
+}
+.contact-form input.invalid,
+.contact-form textarea.invalid {
+  border-color: #ff8a8a;
+  box-shadow: 0 0 8px rgba(255, 138, 138, 0.35);
+}
+.field-error {
+  min-height: 1.1em;
+  font-size: 13px;
+  font-style: italic;
+  color: #ffb3b3;
+}
+.contact-form button {
+  align-self: flex-start;
+  background-color: rgb(137, 255, 214);
+  border: 3px dashed #034530;
+  border-radius: 4px;
+  color: #031803;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 17px;
+  padding: 12px 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.contact-form button:hover {
+  background: rgba(45, 255, 106, 0.3);
+}
+.contact-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.form-status {
+  font-style: italic;
+  color: #2dff6a;
+  min-height: 1.2em;
+}
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 26px;
+}
+.contact-links a {
+  position: relative;
+  color: aquamarine;
+  text-decoration: none;
+  font-style: italic;
+  padding-bottom: 2px;
+}
+.contact-links span {
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+.contact-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: left;
+  opacity: 0.5;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+.contact-links a:hover,
+.contact-links a:focus-visible {
+  color: #2dff6a;
+}
+.contact-links a:hover::after,
+.contact-links a:focus-visible::after {
+  transform: scaleX(1.06);
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(45, 255, 106, 0.6);
+}
+
+/* Thank you */
+.thankyou {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+}
+.thankyou h2 {
+  color: aquamarine;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(36px, 7vw, 70px);
+  margin: 0;
+}
+.thankyou p {
+  max-width: 560px;
+  font-style: italic;
+  font-size: clamp(15px, 1.8vw, 20px);
+  line-height: 1.6;
+}
+.back-to-top {
+  background-color: rgb(137, 255, 214);
+  border: 3px dashed #034530;
+  border-radius: 4px;
+  color: #031803;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 17px;
+  padding: 12px 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: rgba(45, 255, 106, 0.3);
+}
+
+/* Scroll reveal (respects reduced motion) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-load {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .abt-me .btn-menu,
+  .abt-me .btn-menu button {
+    animation: none;
+  }
+  .circle,
+  .portrait {
+    animation: none;
+  }
+  .skill-bar-fill {
+    transition: none;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (min-width: 900px) {
+  .hud-wrapper {
+    padding-top: 300px;
+  }
+  .portrait {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+  }
+  .hud-btn {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .def {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+  }
+  .def .content-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .p {
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .line {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .abt-me .btn-menu button {
+    font-size: 10px;
+  }
+}
+
+/* Small phones: a spinning ring of 8 tap targets is hard to
+   aim at reliably, so swap the circular nav for a static grid */
+@media (max-width: 480px) {
+  .abt-me {
+    min-height: auto;
+    padding: clamp(28px, 8vw, 40px) 16px 40px;
+  }
+  .abt-me .btn-menu {
+    position: static;
+    transform: none;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    animation: none;
+  }
+  .abt-me .btn-menu button {
+    position: static;
+    transform: none !important;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    animation: none;
+    font-size: 12px;
+  }
+  .abt-me .btn-menu button:hover,
+  .abt-me .btn-menu button:focus-visible {
+    transform: scale(1.04) !important;
+  }
+}
+
+/* Mobile Safari handles a fixed hero background poorly
+   (jumpy/flickering on scroll) — use normal scroll there */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .home {
+    background-attachment: scroll;
+  }
+}
+
+@media (max-width: 380px) {
+  .contact-form button,
+  .back-to-top {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Short/landscape viewports: 100vh sections plus a fixed hero
+   background were forcing awkward vertical squeeze and clipped
+   text on phones in landscape — relax min-height there */
+@media (max-height: 560px) and (orientation: landscape) {
+  .home,
+  .abt-me,
+  .def,
+  .panel,
+  section {
+    min-height: auto;
+  }
+  .home {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    gap: 18px;
+  }
+  .abt-me {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .abt-me .btn-menu {
+    width: clamp(200px, 46vh, 320px);
+    height: clamp(180px, 42vh, 290px);
+  }
+  .def {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+  .hud-wrapper {
+    min-height: auto;
+  }
+}
+
+/* Tablet range: portrait sat a little close to the hud circuit
+   lines at the low end of this range — give it more breathing
+   room and shrink it slightly so nothing overlaps */
+@media (min-width: 900px) and (max-width: 1023px) {
+  .hud-wrapper {
+    padding-top: 260px;
+  }
+  .portrait {
+    top: 6px;
+    width: clamp(120px, 16vw, 150px);
+    height: clamp(120px, 16vw, 150px);
+  }
+}
+
+/* =====================================================
+   FULL BREAKPOINT AUDIT — 1440 / 1200 / 1024 / 768 / 600 /
+   480 / 375 / 320. Content panels no longer force 100vh on
+   small screens (that was causing large dead space when a
+   section's content was short); hero/toc/about keep the
+   full-bleed treatment since they carry the background art.
+   Grid layouts get explicit column counts per range instead
+   of relying only on auto-fit, per the 1-col/2-col request.
+===================================================== */
+
+/* Large desktop: let the content breathe instead of just
+   stretching line-length indefinitely */
+@media (min-width: 1440px) {
+  .panel-inner {
+    max-width: 1200px;
+  }
+  .hud-wrapper {
+    max-width: 1000px;
+  }
+  .p {
+    max-width: 620px;
+  }
+}
+
+/* 1200 / 1024: tighten side padding slightly so content
+   doesn't feel like it's floating in the middle of the page */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .panel-inner {
+    max-width: 1050px;
+  }
+}
+
+/* 768 and below: content sections (education, skills,
+   projects, details, contact, thank you) become
+   content-height instead of forced 100vh */
+@media (max-width: 768px) {
+  .panel {
+    min-height: auto;
+    padding-top: clamp(56px, 12vw, 90px);
+    padding-bottom: clamp(56px, 12vw, 90px);
+  }
+  .panel .tab {
+    margin-bottom: clamp(14px, 4vw, 24px);
+  }
+  .skills-grid,
+  .project-grid,
+  .details-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 600 and below: single column everywhere content is stacked,
+   tighter gaps so nothing feels cramped against the edges */
+@media (max-width: 600px) {
+  .skills-grid,
+  .project-grid,
+  .details-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .timeline {
+    gap: 16px;
+  }
+  .panel {
+    padding-left: clamp(16px, 6vw, 28px);
+    padding-right: clamp(16px, 6vw, 28px);
+  }
+}
+
+/* 480 and below already covered above for the circular nav;
+   this covers the rest of the page at the same range */
+@media (max-width: 480px) {
+  .home {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .h51 {
+    margin-left: 4px;
+  }
+  .def {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .contact-form {
+    max-width: 100%;
+  }
+}
+
+/* 375 and 320: smallest phones — trim padding further and
+   make sure nothing (cards, timeline rail, dividers) crowds
+   the edge of the viewport */
+@media (max-width: 375px) {
+  .timeline li {
+    padding: 8px 12px 8px 14px;
+  }
+  .skill,
+  .project-card {
+    padding: 14px 14px;
+  }
+  .divider span {
+    width: 78%;
+  }
+  .tab {
+    font-size: clamp(28px, 9vw, 40px);
+  }
+}
+@media (max-width: 320px) {
+  .panel {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .hud-btn {
+    width: clamp(200px, 78vw, 300px);
+  }
+  .abt-me .btn-menu {
+    gap: 10px;
+  }
+}
+
+/* Keep the About content above the decorative glow and give the portrait,
+   HUD label, and bio separate space at desktop widths. */
+.def .circle {
+  z-index: 0;
+  right: clamp(-80px, 2vw, 40px);
+  left: auto;
+}
+.def .content-col {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .def .content-col {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr);
+    align-items: center;
+    gap: clamp(32px, 6vw, 90px);
+  }
+  .def .hud-wrapper {
+    min-height: 500px;
+  }
+  .def .p {
+    max-width: 620px;
+    margin: 0;
+    order: 0;
+  }
+}
+/* =====================================================
+   FEMININE POLISH LAYER
+   Same design, softened: white as the primary voice with
+   blush / champagne accents layered over the existing
+   aquamarine tech identity. Nothing structural changes.
+===================================================== */
+:root {
+  --pearl: #ffffff;
+  --blush-2: #f7dfe2;
+  --rose: #e9b7bd;
+  --champagne: #e6cfae;
+  --mint: #9ff5dd;
+  --glass: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glow-soft: 0 0 22px rgba(255, 255, 255, 0.18), 0 0 44px rgba(240, 211, 214, 0.18);
+}
+
+body {
+  color: var(--pearl);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Typography: white first, accents as highlights */
+.tab {
+  color: var(--pearl);
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 26px rgba(240, 211, 214, 0.25);
+}
+.tab::after {
+  content: "";
+  display: block;
+  width: clamp(48px, 8vw, 90px);
+  height: 1px;
+  margin: 0.35em auto 0;
+  background: linear-gradient(to right, transparent, var(--rose), var(--champagne), transparent);
+}
+.h51 {
+  color: var(--pearl);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 300;
+}
+.line {
+  color: rgba(255, 255, 255, 0.82);
+}
+.line h4 {
+  letter-spacing: 0.08em;
+  font-weight: 400;
+}
+.gradient-text {
+  background: linear-gradient(
+    105deg,
+    #ffffff 0%,
+    var(--blush-2) 38%,
+    var(--mint) 62%,
+    var(--champagne) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 26px rgba(255, 255, 255, 0.22));
+}
+.accent-text {
+  color: var(--pearl);
+}
+.accent-text-soft {
+  color: var(--rose);
+}
+.highlight {
+  color: var(--pearl);
+  background: linear-gradient(to top, rgba(233, 183, 189, 0.28) 0 42%, transparent 42%);
+  padding: 0 0.12em;
+}
+
+/* Section headings & body copy readability */
+.timeline h3,
+.skill h4,
+.project-card h3 {
+  color: var(--pearl);
+}
+.timeline span.meta {
+  color: rgba(255, 255, 255, 0.7);
+}
+.timeline p,
+.project-card p,
+.thankyou p,
+.p {
+  color: rgba(255, 255, 255, 0.88);
+}
+.section-note {
+  color: rgba(255, 255, 255, 0.62);
+  font-style: italic;
+}
+
+/* Refined glass surfaces */
+.skill,
+.project-card,
+.timeline li,
+.details-list li {
+  background: linear-gradient(150deg, var(--glass), rgba(240, 211, 214, 0.05));
+  border-color: var(--glass-border);
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.18);
+}
+.timeline li,
+.details-list li {
+  border-left: 2px solid var(--rose);
+}
+.timeline li:hover {
+  box-shadow: var(--glow-soft);
+}
+.skill:hover,
+.project-card:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: var(--glow-soft);
+}
+.details-list strong {
+  color: var(--rose);
+}
+.skill-bar {
+  background: rgba(255, 255, 255, 0.12);
+}
+.skill-bar-fill {
+  background: linear-gradient(to right, var(--rose), var(--blush-2), var(--mint));
+  box-shadow: 0 0 10px rgba(247, 223, 226, 0.6);
+}
+.project-tags span {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Portrait: soft luminous halo, perfectly circular, fluid */
+.portrait {
+  aspect-ratio: 1 / 1;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 0 0 8px rgba(255, 255, 255, 0.05),
+    0 0 30px rgba(247, 223, 226, 0.45),
+    0 0 60px rgba(159, 245, 221, 0.28);
+  animation: softHalo 5s ease-in-out infinite;
+}
+.portrait:hover {
+  box-shadow:
+    0 0 0 10px rgba(255, 255, 255, 0.07),
+    0 0 40px rgba(247, 223, 226, 0.6),
+    0 0 80px rgba(159, 245, 221, 0.35);
+}
+@keyframes softHalo {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 8px rgba(255, 255, 255, 0.05),
+      0 0 26px rgba(247, 223, 226, 0.4),
+      0 0 55px rgba(159, 245, 221, 0.24);
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px rgba(255, 255, 255, 0.08),
+      0 0 38px rgba(247, 223, 226, 0.6),
+      0 0 78px rgba(159, 245, 221, 0.36);
+  }
+}
+.circle {
+  border: 2px solid rgba(255, 255, 255, 0.28);
+}
+
+/* Buttons: same shapes, softer luminous finish */
+.abt-me .btn-menu button {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.14), rgba(240, 211, 214, 0.1));
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--pearl);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  line-height: 1.15;
+}
+.abt-me .btn-menu button:hover,
+.abt-me .btn-menu button:focus-visible {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.28), rgba(233, 183, 189, 0.2));
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+}
+.hud-btn {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.9), var(--blush-2));
+  border: 2px dashed rgba(255, 255, 255, 0.8);
+  color: #0b201a;
+  box-shadow: 0 0 22px rgba(247, 223, 226, 0.35);
+  max-width: 100%;
+}
+.hud-btn:hover,
+.hud-btn:focus-visible {
+  background: linear-gradient(140deg, #ffffff, var(--rose));
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.55);
+}
+.contact-form button,
+.back-to-top {
+  background: linear-gradient(140deg, #ffffff, var(--blush-2));
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  color: #0b201a;
+  letter-spacing: 0.04em;
+  box-shadow: 0 6px 20px rgba(247, 223, 226, 0.25);
+}
+.contact-form button:hover,
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: linear-gradient(140deg, #ffffff, var(--rose));
+  box-shadow: 0 8px 26px rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+.contact-form input,
+.contact-form textarea {
+  border-color: var(--glass-border);
+  background: linear-gradient(160deg, var(--glass), rgba(240, 211, 214, 0.05));
+  width: 100%;
+  max-width: 100%;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--rose);
+  box-shadow: 0 0 14px rgba(233, 183, 189, 0.45);
+}
+.contact-links a {
+  color: var(--pearl);
+}
+.contact-links a:hover,
+.contact-links a:focus-visible {
+  color: var(--rose);
+}
+.form-status {
+  color: var(--blush-2);
+}
+.thankyou h2 {
+  color: var(--pearl);
+}
+.divider span::before {
+  border-color: var(--rose);
+}
+
+/* =====================================================
+   RESPONSIVE / OVERFLOW HARDENING (final pass)
+===================================================== */
+img {
+  max-width: 100%;
+  height: auto;
+}
+section,
+.panel,
+.panel-inner,
+.hud-wrapper,
+.def,
+.abt-me,
+.home {
+  max-width: 100%;
+}
+.panel-inner,
+.content-col,
+.p,
+.timeline li,
+.skill,
+.project-card,
+.details-list li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.def {
+  flex-wrap: wrap;
+}
+.content-col {
+  width: 100%;
+}
+.thankyou {
+  padding-left: clamp(16px, 6vw, 60px);
+  padding-right: clamp(16px, 6vw, 60px);
+}
+.contact-form {
+  width: 100%;
+}
+.details-list li strong {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 899px) {
+  .hud-wrapper {
+    min-height: 0;
+    padding-top: 0;
+  }
+  .def {
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(20px, 5vw, 32px);
+  }
+  .hud-btn {
+    margin-inline: auto;
+  }
+  .p {
+    margin-inline: auto;
+  }
+  .circle {
+    left: 50%;
+    right: auto;
+    top: 24%;
+    transform: translate(-50%, -50%);
+    width: clamp(140px, 42vw, 260px);
+    height: clamp(140px, 42vw, 260px);
+    opacity: 0.55;
+  }
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .circle {
+    right: 0;
+    opacity: 0.4;
+  }
+  .hud-text {
+    font-size: clamp(16px, 5vw, 22px);
+  }
+  .contact-links {
+    gap: 10px;
+  }
+}
+@media (max-width: 360px) {
+  .abt-me .btn-menu {
+    grid-template-columns: 1fr;
+  }
+  .abt-me .btn-menu button {
+    aspect-ratio: auto;
+    padding: 14px 10px;
+    border-radius: 14px;
+  }
+}
+
+/* Hero rhythm: preflight resets heading margins, so set spacing explicitly */
+.home {
+  padding: clamp(20px, 4vw, 40px) 0 clamp(24px, 4vw, 40px);
+}
+.h51 {
+  margin: 0;
+  padding: 0 clamp(16px, 5vw, 50px);
+}
+.h51 h4 {
+  margin: 0;
+  font-size: clamp(13px, 2.4vw, 22px);
+}
+.home .h5 h1 {
+  margin: 0;
+}
+.line h4 {
+  margin: 0;
+}
+
+/* About: keep the hud column centered and clear of the glow ring */
+.def .content-col {
+  position: relative;
+  z-index: 1;
+}
+.circle {
+  z-index: 0;
+}
+@media (min-width: 900px) {
+  .hud-wrapper {
+    max-width: 560px;
+    margin-inline: auto;
+    padding-top: 280px;
+  }
+  .hud-btn {
+    margin-inline: auto;
+  }
+}
+@media (min-width: 1024px) {
+  .def {
+    gap: clamp(24px, 4vw, 56px);
+    justify-content: center;
+  }
+  .def .content-col {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(24px, 4vw, 60px);
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+  .p {
+    order: -1;
+    max-width: 560px;
+  }
+  .circle {
+    left: auto;
+    right: auto;
+    left: 27%;
+    transform: translateY(-50%);
+    opacity: 0.75;
+  }
+  .portrait {
+    width: clamp(180px, 18vw, 240px);
+    height: clamp(180px, 18vw, 240px);
+  }
+  .hud-btn {
+    width: min(100%, 360px);
+    height: 82px;
+    clip-path: none;
+    border-radius: 6px;
+  }
+}
+
+/* About layout refactor: the glow now lives inside the visual column, so it
+   always shares the exact center and size anchor of the portrait. */
+.def {
+  min-height: 100svh;
+  padding: clamp(32px, 6vw, 72px) clamp(20px, 6vw, 80px);
+  flex-direction: column;
+  justify-content: center;
+}
+.def > .tab {
+  position: relative;
+  inset: auto;
+  z-index: 2;
+  width: min(100%, max-content);
+  margin: 0 0 clamp(24px, 4vw, 52px);
+  transform: none;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  line-height: 0.95;
+}
+.def .content-col {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 96px);
+  width: min(100%, 1320px);
+  margin-inline: auto;
+}
+.def .hud-wrapper {
+  --portrait-size: clamp(210px, 24vw, 330px);
+  --visual-padding: clamp(20px, 3vw, 36px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 520px;
+  min-height: 0;
+  margin-inline: auto;
+  padding: var(--visual-padding);
+}
+.def .circle {
+  z-index: -1;
+  top: calc(var(--visual-padding) + var(--portrait-size) / 2);
+  left: 50%;
+  right: auto;
+  width: var(--portrait-size);
+  height: var(--portrait-size);
+  transform: translate(-50%, -50%);
+}
+.def .portrait {
+  position: relative;
+  inset: auto;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: var(--portrait-size);
+  height: var(--portrait-size);
+  margin: 0;
+  transform: none;
+}
+.def .portrait img {
+  object-fit: contain;
+  object-position: center;
+  background: rgba(5, 16, 12, 0.35);
+}
+.def .hud-btn {
+  z-index: 1;
+  width: clamp(190px, 28vw, 360px);
+  height: clamp(64px, 6vw, 84px);
+  margin: 0;
+  clip-path: none;
+  border-radius: 6px;
+}
+.def .p {
+  width: 100%;
+  max-width: 650px;
+  margin: 0;
+  font-size: clamp(1rem, 1.2vw, 1.35rem);
+  line-height: 1.7;
+}
+.def .hud-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: clamp(-96px, -6vw, -32px);
+  width: clamp(32px, 6vw, 96px);
+  height: 1px;
+  background: linear-gradient(to right, var(--rose), transparent);
+  box-shadow: 0 0 8px rgba(233, 183, 189, 0.65);
+  pointer-events: none;
+}
+
+.def .content-col {
+  align-items: center;
+}
+
+@media (max-width: 1023px) {
+  .def {
+    min-height: auto;
+    padding-block: clamp(48px, 10vw, 80px);
+  }
+  .def .content-col {
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 6vw, 48px);
+    max-width: 760px;
+  }
+  .def .hud-wrapper {
+    max-width: 520px;
+  }
+  .def .hud-wrapper::after {
+    top: auto;
+    right: auto;
+    bottom: clamp(-48px, -6vw, -28px);
+    left: 50%;
+    width: 1px;
+    height: clamp(28px, 6vw, 48px);
+    background: linear-gradient(to bottom, var(--rose), transparent);
+  }
+  .def .p {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .def {
+    padding-inline: clamp(16px, 6vw, 28px);
+  }
+  .def .portrait,
+  .def .circle {
+    width: clamp(170px, 48vw, 220px);
+    height: clamp(170px, 48vw, 220px);
+  }
+  .def .hud-wrapper {
+    --portrait-size: clamp(170px, 48vw, 220px);
+    --visual-padding: 12px;
+  }
+  .def .hud-btn {
+    width: min(100%, 260px);
+  }
+  .def .p {
+    font-size: clamp(1rem, 4.2vw, 1.15rem);
+    line-height: 1.65;
+  }
+}
+
+/* Highlighted words: a delicate blush underline instead of a block */
+.highlight {
+  background: none;
+  padding: 0;
+  color: var(--pearl);
+  box-shadow: inset 0 -0.32em 0 rgba(233, 183, 189, 0.35);
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+}
+
+/* Mobile nav grid: compact, tappable tiles instead of tall squares */
+@media (max-width: 480px) {
+  .abt-me {
+    padding-bottom: clamp(32px, 10vw, 56px);
+  }
+  .abt-me .btn-menu {
+    gap: 12px;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+  .abt-me .btn-menu button {
+    aspect-ratio: auto;
+    min-height: 56px;
+    padding: 14px 10px;
+    border-radius: 999px;
+    font-size: clamp(11px, 3.2vw, 13px);
+    letter-spacing: 0.06em;
+  }
+}
